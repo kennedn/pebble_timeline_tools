@@ -17,7 +17,7 @@ spec:
             name: bin
             workingDir: /usr/src/app
             command: ["python"]
-            args: ["-u", "bin_collector.py", "-d"]
+            args: ["-u", "bin_collector.py"]
             volumeMounts:
             - name: bin-config-volume
               mountPath:  /usr/src/app/variables.py

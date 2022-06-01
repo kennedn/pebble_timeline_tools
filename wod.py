@@ -22,8 +22,8 @@ while True:
     title = soup.find('div', class_='word-and-pronunciation').h1.text
 
     old_title = None
-    if os.path.isfile('.last_word'):
-        with open('.last_word', 'rb') as file:
+    if os.path.isfile('last_word/.last_word'):
+        with open('last_word/.last_word', 'rb') as file:
             old_title = pickle.load(file)
     if old_title == title and not args.debug:
         wait_time = 15 * 60
@@ -39,7 +39,7 @@ while True:
     else:
       print(f"{title}\n{body}")
 
-    with open('.last_word', 'wb') as file:
+    with open('last_word/.last_word', 'wb') as file:
         pickle.dump(title, file, protocol=pickle.HIGHEST_PROTOCOL)
     break
   

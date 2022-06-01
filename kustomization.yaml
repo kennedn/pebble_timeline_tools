@@ -1,6 +1,7 @@
 resources:
   - cronjob-wod.yaml
   - cronjob-bin.yaml
+  - volumeclaim-wod.yaml
 
 configMapGenerator:
 - name: pebbletools-config

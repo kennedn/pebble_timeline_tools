@@ -17,14 +17,19 @@ spec:
             name: wod
             workingDir: /usr/src/app
             command: ["python"]
-            args: ["-u", "wod.py", "-d"]
+            args: ["-u", "wod.py"]
             volumeMounts:
             - name: wod-config-volume
               mountPath:  /usr/src/app/variables.py
               subPath: variables.py
+            - name: last-word-volume
+              mountPath:  /usr/src/app/last_word
           volumes:
           - name: wod-config-volume
             configMap:
               defaultMode: 420
               name: pebbletools-config
+          - name: last-word-volume
+            persistentVolumeClaim:
+              claimName: wod-pvc
 
