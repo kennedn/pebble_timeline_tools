@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+    name: wod
+spec:
+  schedule: "0 7 * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: wod
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - image: quay.io/kennedn/pebbletools
+            name: wod
+            workingDir: /usr/src/app
+            command: ["python"]
+            args: ["-u", "wod.py", "-d"]
+            volumeMounts:
+            - name: wod-config-volume
+              mountPath:  /usr/src/app/variables.py
+              subPath: variables.py
+          volumes:
+          - name: wod-config-volume
+            configMap:
+              defaultMode: 420
+              name: pebbletools-config
+
