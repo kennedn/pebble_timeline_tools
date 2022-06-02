@@ -35,7 +35,7 @@ while True:
     body += '\n'.join(i.text for i in list(filter(lambda s: s.text.startswith("//"), soup.find('div', {'class': 'wod-definition-container'})('p'))))
     if not args.debug:
         print(f"Sending word: {title}")
-        requests.post(pinproxy_url, json={"time":"A","meta":{"clocktime":{"hour":23,"minute":59},"notifyOnArrival":False},"layout":{"type":"genericPin","title":"Todays word:","body": body,"subtitle": title,"tinyIcon":"system://images/NEWS_EVENT"},"token": token})
+        requests.post(pinproxy_url, json={"time":"A","meta":{"clocktime":{"hour":22,"minute":59},"notifyOnArrival":False},"layout":{"type":"genericPin","title":"Todays word:","body": body,"subtitle": title,"tinyIcon":"system://images/NEWS_EVENT"},"token": token})
     else:
       print(f"{title}\n{body}")
 
