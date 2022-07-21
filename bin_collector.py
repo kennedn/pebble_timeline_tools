@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime,timedelta,date
 import argparse
-from variables import token, address
+from variables import token, address, pinproxy_url
 from urllib.parse import quote_plus
 
 class Bin:
@@ -46,7 +46,7 @@ for b in bins:
   if (b.date.date() - date.today()).days <= 1 or args.force:
     if not args.debug:
         print(f"{b.lookup} is tomorrow, sending notification")
-        requests.post("https://kennedn.com/pinproxy/ifttt", json={"time":"A","meta":{"clocktime":{"hour":22,"minute":59},"notifyOnArrival":True},"layout":{"type":"genericPin","title":"Bin Alert","body":f"{b.lookup} is due {b.format_date}","subtitle":f"{b.name.capitalize()} collection tomorrow","tinyIcon":"system://images/SCHEDULED_EVENT"},"token": f"{token}"})
+        requests.post(pinproxy_url, json={"time":"A","meta":{"clocktime":{"hour":22,"minute":59},"notifyOnArrival":True},"layout":{"type":"genericPin","title":"Bin Alert","body":f"{b.lookup} is due {b.format_date}","subtitle":f"{b.name.capitalize()} collection tomorrow","tinyIcon":"system://images/SCHEDULED_EVENT"},"token": f"{token}"})
     else:
         print(f"{b.lookup} is tomorrow!")
   else:
