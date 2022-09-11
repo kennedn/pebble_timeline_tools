@@ -3,6 +3,8 @@ resources:
   - cronjob-bin.yaml
   - volumeclaim-wod.yaml
 
+namespace: default
+
 configMapGenerator:
 - name: pebbletools-config
   behavior: create
