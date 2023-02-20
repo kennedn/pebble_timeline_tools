@@ -41,14 +41,18 @@ bins.append(Bin("food", "Next food bin collection"))
 
 for b in bins:
   b.get_date(soup)
-#  next_monday = date.today() + timedelta(days=-date.today().weekday(), weeks=1)
-#  if next_monday == b.date.date():
-  if (b.date.date() - date.today()).days <= 1 or args.force:
+  # Check if bin collection date is tomorrow
+  bin_delta = (b.date.date() - date.today()).days
+  if bin_delta == 1 or args.force:
     if not args.debug:
         print(f"{b.lookup} is tomorrow, sending notification")
         requests.post(pinproxy_url, json={"time":"A","meta":{"clocktime":{"hour":22,"minute":59},"notifyOnArrival":True},"layout":{"type":"genericPin","title":"Bin Alert","body":f"{b.lookup} is due {b.format_date}","subtitle":f"{b.name.capitalize()} collection tomorrow","tinyIcon":"system://images/SCHEDULED_EVENT"},"token": f"{token}"})
     else:
         print(f"{b.lookup} is tomorrow!")
+  elif bin_delta == 0:
+    print(f"{b.lookup} is today")
+  elif bin_delta < 0:
+    print(f"{b.lookup} was on {b.format_date}")
   else:
     print(f"{b.lookup} is on {b.format_date}")
   

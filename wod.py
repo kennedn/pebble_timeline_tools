@@ -19,7 +19,7 @@ args = parser.parse_args()
 while True:
     url = 'https://www.merriam-webster.com/word-of-the-day'
     soup = BeautifulSoup(requests.get(url).text, 'html.parser')
-    title = soup.find('div', class_='word-and-pronunciation').h1.text
+    title = soup.find(class_='word-header-txt').text
 
     old_title = None
     if os.path.isfile('last_word/.last_word'):
