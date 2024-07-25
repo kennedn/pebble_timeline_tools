@@ -3,6 +3,7 @@ kind: CronJob
 metadata:
     name: wod
 spec:
+  successfulJobsHistoryLimit: 1
   schedule: "0 7 * * *"
   jobTemplate:
     spec:
