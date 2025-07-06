@@ -27,11 +27,14 @@ parser.add_argument('-d', '--debug', action='store_true', default=False, help='s
 parser.add_argument('-f', '--force', action='store_true', default=False, help='force notification')
 args = parser.parse_args()
 
+headers = {
+    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0'
+}
 
 search_url= f'https://www.midlothian.gov.uk/site/scripts/directory_search.php?directoryID=35&keywords={quote_plus(address)}&search=Search'
-soup = BeautifulSoup(requests.get(search_url).text, 'html.parser')
+soup = BeautifulSoup(requests.get(search_url, headers=headers).text, 'html.parser')
 url = f'https://www.midlothian.gov.uk{soup.find("a", string=address).get("href")}'
-soup = BeautifulSoup(requests.get(url).text, 'html.parser')
+soup = BeautifulSoup(requests.get(url, headers=headers).text, 'html.parser')
 bins = []
 bins.append(Bin("recycling", "Next recycling collection"))
 bins.append(Bin("grey", "Next grey bin collection"))
